@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Student Registration</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="css/bootstrap.min.css">
+		<link href="css/jquery.datepicker2.css" rel="stylesheet" />
+		<link href="css/select2.min.css" rel="stylesheet" />
+		<link href="css/ratify-upload.css" rel="stylesheet">
+    	<link href="css/jquerysctipttop.css" rel="stylesheet">
+		
+	</head>
+	<body style="background-color: #b88d5f;">
+		<div class="container-fluid">
+			<center><div class="alert alert-warning col-4 font-weight-bold ml-5">STUDENT REGISTRATION</div></center>
+			<div class="col-4" style="margin-left: 35%;">
+				<!-- Error display-->
+				<div class="alert alert-danger  text-center" style="display: none;" id="showError">
+					<strong>Error!&nbsp;&nbsp;</strong><span id="nameError"></span>
+				</div>
+
+				<!-- Success display-->
+				<div class="alert alert-success  text-center" style="display: none;" id="showSuccess">
+					<strong>Success!&nbsp;&nbsp;</strong><span id="nameSuccess"></span>
+				</div>
+
+				<!-- Edit display-->
+				<div class="alert alert-primary  text-center" style="display: none;" id="showEdit">
+					<strong>Edit!&nbsp;&nbsp;</strong><span id="nameEdit"></span>
+				</div>
+
+				<div class="row">
+					<input type="text" class="form-control mt-2 col-6 h-25" id="fn" name="fullname" placeholder="Full Name" pattern="[a-zA-Z ]+$"  value="aaaaa">
+					<input type="email" class="form-control mt-2 col-6 h-25" id="email" name="fullname" placeholder="Email"  value="a@gmail.com">
+				</div>
+				<div class="row">
+					<input type="password" class="form-control mt-2 col-6 h-25" id="password" name="password" placeholder="Password" value="123">
+					<input type="password" class="form-control mt-2 col-6 h-25" id="cpassword" name="cpassword" placeholder="Confirm Password" value="123">
+				</div> 
+				<div class="row" style="margin-left:70px;">
+					<input type="text" class="form-control mt-2 col-9 h-25" id="phoneNo" name="phoneNo" placeholder="03xx-xxxxxxx" value="0300-2086904">
+				</div>
+
+				<div class="row col-10 mt-2"  style="margin-left:55px;" >
+					<label class="font-weight-bold mt-1 mr-4">Course</label>
+					<select id="course" onchange="subjects()" data-placeholder="Select a Course" class="col-8">
+						<option value="" ></option>
+						<option value="BSCS">BS Computer Science</option>
+						<option value="BSSE">BS Software Engineering</option>
+						<option value="BSIT">BS Information Technology</option>
+						<option value="BSBA">BS Business Administration</option>
+					</select>
+				</div>
+
+				<div id="BSCS" style="display: none;margin-left: 70px;">
+					<input type="checkbox" name="BSCS" id="CS201" value="CS201">&nbsp;CS201
+					<input type="checkbox" name="BSCS" id="MTH101" value="MTH101">&nbsp;MTH101
+					<input type="checkbox" name="BSCS" id="CS404" value="CS404">&nbsp;CS404
+					<input type="checkbox" name="BSCS" id="MTH502" value="MTH502">&nbsp;MTH502
+				</div>
+
+				<div id="BSSE" style="display: none;margin-left: 70px;">
+					<input type="checkbox" name="BSSE" id="CS304" value="CS304">&nbsp;CS304
+					<input type="checkbox" name="BSSE" id="MTH202" value="MTH202">&nbsp;MTH202
+					<input type="checkbox" name="BSSE" id="CS601" value="CS601">&nbsp;CS601
+					<input type="checkbox" name="BSSE" id="MTH501" value="MTH501">&nbsp;MTH501
+				</div>
+
+				<div id="BSIT" style="display: none;margin-left: 70px;">
+					<input type="checkbox" name="BSIT" id="CS401" value="CS401">&nbsp;CS401
+					<input type="checkbox" name="BSIT" id="MGT301" value="MGT301">&nbsp;MGT301
+					<input type="checkbox" name="BSIT" id="CS403" value="CS403">&nbsp;CS403
+					<input type="checkbox" name="BSIT" id="MCM301" value="MCM301">&nbsp;MCM301
+				</div>
+
+				<div id="BSBA" style="display: none;margin-left: 70px;">
+					<input type="checkbox" name="BSBA" id="MGT211" value="MGT211">&nbsp;MGT211
+					<input type="checkbox" name="BSBA" id="ECO402" value="ECO402">&nbsp;ECO402
+					<input type="checkbox" name="BSBA" id="ACC501" value="ACC501">&nbsp;ACC501
+					<input type="checkbox" name="BSBA" id="ECO403" value="ECO403">&nbsp;ECO403
+				</div>
+
+				<div class="row" style="margin-left: 70px;">
+					<label class="font-weight-bold">Gender</label>
+					<input type="radio" class="mt-2 ml-5" name="gender" id="male" value="Male" checked>&nbsp;Male
+					<input type="radio" class="mt-2 ml-5" name="gender" id="female" value="Female">&nbsp;Female
+				</div>
+
+				<div class="row" style="margin-left: 70px;">
+					<span class="font-weight-bold float-left mr-3 mt-1">Date Of Birth</span>
+					<input class="form-control col-5 h-25" type="text" name="date" id="date" data-select="datepicker" value="09-22-2009">
+				</div>
+
+			    <div class="row" style="margin-left: 55px;">
+					<label class="col-5 font-weight-bold" id="imgText">Profile Photo</label>
+					<div class="col-12">
+				     <input type="file" id="fileDemo" onchange="getUrl(event)" style="margin: auto;">
+				 	</div>
+
+	    		    <div id="images" class="hide" style="display: none">
+				    	
+				    </div>
+			    </div>
+			 
+				<button style="margin-left: 70px;" class="btn btn-success col-8 mt-2 mb-2" onclick="addRecord()">Register</button>
+			</div>
+			
+		</div>
+		<div>
+			<table class="w-100 table text-center" id="add_table">
+				<thead class="thead-dark">
+					<tr>
+						<th class="border border-secondary">Profile</th>
+						<th class="border border-secondary">FullName</th>
+						<th class="border border-secondary">Email</th>
+						<th class="border border-secondary">Roll #</th>
+						<th class="border border-secondary">Phone #</th>
+						<th class="border border-secondary">Course</th>
+						<th class="border border-secondary">Subjects</th>
+						<th class="border border-secondary">Gender</th>
+						<th class="border border-secondary">DOB</th>
+						<th class="border border-secondary" colspan="2">Actions</th>
+					</tr>
+				</thead>
+			</table>
+		</div>
+
+
+
+
+
+
+
+		<script src="js/jquery.js"></script>
+		<script src="js/jquery.datepicker2.js"></script>
+		<script src="js/select2.min.js"></script>
+		<script src="js/regist.js"></script>	
+		<script src="js/bootstrap.min.js"></script>
+		<script src='js/ratify-upload.js'></script>
+
+
+		<script>
+			$(document).ready(function(){
+	              $("#course").select2();
+			});
+		</script>
+
+		<script>
+		    $(document).ready(function () {
+		         $("#fileDemo").ratifyUpload();
+		    });
+		</script>
+	</body>
+</html>
